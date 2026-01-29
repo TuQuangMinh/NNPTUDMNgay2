@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Danh sách sản phẩm</title>
+  <!-- Bootstrap CSS -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+  <style>
+    body {
+      background-color: #f8f9fa;
+      padding-top: 20px;
+      padding-bottom: 40px;
+    }
+    .product-card {
+      transition: transform 0.3s, box-shadow 0.3s;
+      height: 100%;
+    }
+    .product-card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
+    }
+    .product-image {
+      height: 250px;
+      object-fit: cover;
+    }
+    .price {
+      color: #dc3545;
+      font-size: 1.3rem;
+      font-weight: bold;
+    }
+  </style>
+</head>
+<body>
+  <!-- Navbar -->
+  <nav class="navbar navbar-dark bg-primary mb-5">
+    <div class="container-fluid">
+      <span class="navbar-brand mb-0 h1">🛍️ Danh sách sản phẩm</span>
+    </div>
+  </nav>
+
+  <!-- Main Container -->
+  <div class="container">
+    <div class="row mb-3">
+      <div class="col-md-6">
+        <div class="input-group">
+          <span class="input-group-text">Tìm kiếm</span>
+          <input id="search" type="search" class="form-control" placeholder="Tìm theo tên sản phẩm" aria-label="Tìm theo tên">
+        </div>
+      </div>
+      <div class="col-md-6 text-md-end mt-2 mt-md-0">
+        <div class="btn-group" role="group" aria-label="Sắp xếp">
+          <button id="sortNameAsc" class="btn btn-outline-secondary btn-sm">Tên ↑</button>
+          <button id="sortNameDesc" class="btn btn-outline-secondary btn-sm">Tên ↓</button>
+          <button id="sortPriceAsc" class="btn btn-outline-secondary btn-sm">Giá ↑</button>
+          <button id="sortPriceDesc" class="btn btn-outline-secondary btn-sm">Giá ↓</button>
+        </div>
+      </div>
+    </div>
+
+    <div class="table-responsive">
+      <table class="table table-striped table-hover align-middle">
+        <thead class="table-light">
+          <tr>
+            <th style="width:60px;">#</th>
+            <th>Tên sản phẩm</th>
+            <th style="width:140px;">Giá</th>
+            <th style="width:110px;">Ảnh</th>
+            <th style="width:120px;">Hành động</th>
+          </tr>
+        </thead>
+        <tbody id="table-body"></tbody>
+      </table>
+    </div>
+
+    <div class="d-flex justify-content-between align-items-center mt-3">
+      <nav id="pagination" aria-label="Pagination"></nav>
+    </div>
+  </div>
+
+  <!-- Bootstrap JS -->
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+  <script src="script.js"></script>
+</body>
+</html>
