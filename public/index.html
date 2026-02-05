@@ -29,6 +29,19 @@
       font-size: 1.3rem;
       font-weight: bold;
     }
+    .modal-body textarea {
+      min-height: 100px;
+    }
+    .comment-item {
+      border-left: 4px solid #007bff;
+      padding: 10px;
+      margin-bottom: 10px;
+      background-color: #f8f9fa;
+    }
+    .comment-deleted {
+      text-decoration: line-through;
+      color: #999;
+    }
   </style>
 </head>
 <body>
@@ -49,12 +62,24 @@
         </div>
       </div>
       <div class="col-md-6 text-md-end mt-2 mt-md-0">
-        <div class="btn-group" role="group" aria-label="Sắp xếp">
+        <div class="btn-group me-2" role="group" aria-label="Sắp xếp">
           <button id="sortNameAsc" class="btn btn-outline-secondary btn-sm">Tên ↑</button>
           <button id="sortNameDesc" class="btn btn-outline-secondary btn-sm">Tên ↓</button>
           <button id="sortPriceAsc" class="btn btn-outline-secondary btn-sm">Giá ↑</button>
           <button id="sortPriceDesc" class="btn btn-outline-secondary btn-sm">Giá ↓</button>
         </div>
+        <div class="form-check form-check-inline">
+          <input class="form-check-input" type="checkbox" id="showDeleted" value="">
+          <label class="form-check-label" for="showDeleted">
+            Hiển thị xoá
+          </label>
+        </div>
+      </div>
+    </div>
+
+    <div class="row mb-3">
+      <div class="col-md-12">
+        <button class="btn btn-success" data-bs-toggle="modal" data-bs-target="#createModal">+ Thêm sản phẩm</button>
       </div>
     </div>
 
@@ -66,7 +91,7 @@
             <th>Tên sản phẩm</th>
             <th style="width:140px;">Giá</th>
             <th style="width:110px;">Ảnh</th>
-            <th style="width:120px;">Hành động</th>
+            <th style="width:180px;">Hành động</th>
           </tr>
         </thead>
         <tbody id="table-body"></tbody>
@@ -75,6 +100,82 @@
 
     <div class="d-flex justify-content-between align-items-center mt-3">
       <nav id="pagination" aria-label="Pagination"></nav>
+    </div>
+  </div>
+
+  <!-- Create/Edit Product Modal -->
+  <div class="modal fade" id="createModal" tabindex="-1" aria-labelledby="createModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h1 class="modal-title fs-5" id="createModalLabel">Thêm sản phẩm</h1>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+          <form id="productForm">
+            <div class="mb-3">
+              <label for="productTitle" class="form-label">Tên sản phẩm *</label>
+              <input type="text" class="form-control" id="productTitle" required>
+            </div>
+            <div class="mb-3">
+              <label for="productPrice" class="form-label">Giá *</label>
+              <input type="number" class="form-control" id="productPrice" required>
+            </div>
+            <div class="mb-3">
+              <label for="productDescription" class="form-label">Mô tả</label>
+              <textarea class="form-control" id="productDescription"></textarea>
+            </div>
+            <div class="mb-3">
+              <label for="productImages" class="form-label">URL Ảnh</label>
+              <input type="text" class="form-control" id="productImages" placeholder="https://...">
+            </div>
+          </form>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Đóng</button>
+          <button type="button" class="btn btn-primary" id="saveProdBtn">Lưu</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Product Detail & Comments Modal -->
+  <div class="modal fade" id="detailModal" tabindex="-1" aria-labelledby="detailModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h1 class="modal-title fs-5" id="detailModalLabel">Chi tiết sản phẩm</h1>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+          <div id="productDetail"></div>
+          
+          <hr>
+          <h5>Bình luận</h5>
+          <div id="commentsList" class="mb-3"></div>
+          
+          <div class="card">
+            <div class="card-header">Thêm bình luận</div>
+            <div class="card-body">
+              <form id="commentForm">
+                <div class="mb-3">
+                  <label for="commentAuthor" class="form-label">Tác giả *</label>
+                  <input type="text" class="form-control" id="commentAuthor" required>
+                </div>
+                <div class="mb-3">
+                  <label for="commentContent" class="form-label">Nội dung *</label>
+                  <textarea class="form-control" id="commentContent" required></textarea>
+                </div>
+              </form>
+            </div>
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Đóng</button>
+          <button type="button" class="btn btn-primary" id="editProdBtn">Sửa</button>
+          <button type="button" class="btn btn-success" id="addCommentBtn">Bình luận</button>
+        </div>
+      </div>
     </div>
   </div>
 
